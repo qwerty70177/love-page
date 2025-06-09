@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #111;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+            color: #ff69b4;
+        }
+
+        /* Text rain */
+        .text-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            font-size: 12px;
+            opacity: 0.3;
+            animation: rainMove 12s linear infinite;
+        }
+
+        .text-rain span {
+            margin: 0 3px;
+            white-space: nowrap;
+            display: inline-block;
+            animation-name: fall, colorPulse;
+            animation-duration: 5s, 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear, ease-in-out;
+            animation-direction: normal, alternate;
+        }
+
+        /* Different speeds and delays */
+        .text-rain span:nth-child(3n) {
+            animation-duration: 6s, 4s;
+            animation-delay: 0s, 1s;
+            font-size: 10px;
+        }
+
+        .text-rain span:nth-child(4n) {
+            animation-duration: 7s, 2.5s;
+            animation-delay: 2s, 0s;
+            font-size: 14px;
+        }
+
+        .text-rain span:nth-child(5n) {
+            animation-duration: 4.5s, 3.5s;
+            animation-delay: 1s, 2s;
+            font-size: 11px;
+        }
+
+        /* Falling animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(-120%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+
+        /* Color flicker animation */
+        @keyframes colorPulse {
+            0% {
+                color: #ff69b4;
+                text-shadow: 0 0 5px #ff69b4;
+            }
+            50% {
+                color: #ff1493;
+                text-shadow: 0 0 20px #ff1493, 0 0 30px #ff69b4;
+            }
+            100% {
+                color: #ff69b4;
+                text-shadow: 0 0 5px #ff69b4;
+            }
+        }
+
+        /* Slow text movement to the right */
+        @keyframes rainMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(25px); }
+        }
+
+        /* Heart container */
+        .Love__You {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Proper heart shape with pulsation */
+        .heart {
+            width: 100px;
+            height: 100px;
+            background-color: #ff0077;
+            position: relative;
+            transform: rotate(-45deg) scale(1);
+            animation: pulseAndGlow 2s ease-in-out infinite;
+            box-shadow: 0 0 30px #ff0088, 0 0 60px #ff55aa;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            background-color: #ff0077;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 30px #ff0088, 0 0 60px #ff55aa;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 50px;
+        }
+
+        /* Heart pulsation and glow */
+        @keyframes pulseAndGlow {
+            0%, 100% {
+                transform: rotate(-45deg) scale(1);
+                box-shadow: 0 0 30px #ff0088, 0 0 60px #ff55aa;
+            }
+            50% {
+                transform: rotate(-45deg) scale(1.25);
+                box-shadow: 0 0 50px #ff3399, 0 0 80px #ff99cc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text-rain" id="textRain"></div>
+    <div class="Love__You">
+        <div class="heart"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textRain = document.getElementById('textRain');
+            const loveText = "I Love You ";
+            const repetitions = 200; // Number of text elements to create
+            
+            for (let i = 0; i < repetitions; i++) {
+                const span = document.createElement('span');
+                span.textContent = loveText;
+                textRain.appendChild(span);
+            }
+        });
+    </script>
+</body>
+</html>
